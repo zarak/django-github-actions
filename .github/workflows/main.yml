@@ -76,11 +76,6 @@ jobs:
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
       - name: Build and deploy images on EC2
-        uses: docker/login-action@v1
-        with:
-          registry: docker.pkg.github.com
-          username: ${{ secrets.REPOSITORY_OWNER }}
-          password: ${{ secrets.REPO_TOKEN }}
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
@@ -88,6 +83,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }} << 'ENDSSH'
             cd /home/ubuntu/app
             source .env
+            docker login docker.pkg.github.com -u zarak -p ce70f1d4a3a906ce8ac24caa6870fd29f2273d30
             docker pull $WEB_IMAGE
             docker pull $NGINX_IMAGE
             docker-compose -f docker-compose.prod.yml up -d
