@@ -83,7 +83,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }} << 'ENDSSH'
             cd /home/ubuntu/app
             source .env
-            docker login docker.pkg.github.com -u zarak -p ce70f1d4a3a906ce8ac24caa6870fd29f2273d30
+            docker login docker.pkg.github.com -u zarak -p 2a0b4c3986f83629ec8fd0fe44d6534c530e122a
             docker pull $WEB_IMAGE
             docker pull $NGINX_IMAGE
             docker-compose -f docker-compose.prod.yml up -d
