@@ -79,8 +79,8 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: docker.pkg.github.com
-          username: ${{ secretes.REPOSITORY_OWNER }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.REPOSITORY_OWNER }}
+          password: ${{ secrets.REPO_TOKEN }}
       - name: Build and deploy images on EC2
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
